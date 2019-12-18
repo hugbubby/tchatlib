@@ -1,20 +1,12 @@
-package tchatlib
+package main
 
 import (
-	"crypto/ed25519"
 	"crypto/rand"
 	"io/ioutil"
 	"os"
-)
 
-type Config struct {
-	Tor struct {
-		ProxyAddress      string `json:"proxy_address"`
-		ControllerAddress string `json:"controller_address"`
-	} `json:"tor_config"`
-	ServerAddress string `json:"server_address"`
-	ReadCookie    string `json:"read_cookie"`
-}
+	"golang.org/x/crypto/ed25519"
+)
 
 //Me being cheeky
 var configDir = os.Getenv("HOME") + "/.config/tchatd"
