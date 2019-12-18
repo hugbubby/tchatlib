@@ -1,4 +1,4 @@
-package main
+package tchatlib
 
 import (
 	"crypto/rand"
