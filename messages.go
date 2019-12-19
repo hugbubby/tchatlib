@@ -7,6 +7,10 @@ type Message struct {
 	Content   string `json:"content"`
 }
 
+type ContactList struct {
+	Contacts []Contact `json:"contacts"`
+}
+
 type Contact struct {
-	PubKey    ed25519.PublicKey `json:"pubkey"`
+	PubKey ed25519.PublicKey `json:"pubkey"`
 }
