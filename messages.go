@@ -12,5 +12,6 @@ type ContactList struct {
 }
 
 type Contact struct {
-	PubKey ed25519.PublicKey `json:"pubkey"`
+	ServiceID string            `json:"service_id"`
+	PubKey    ed25519.PublicKey `json:"pubkey"`
 }

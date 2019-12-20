@@ -16,23 +16,23 @@ func ConfigPath(filename string) string {
 }
 
 //Load private key from disk
-func GetKeys() (ed25519.PublicKey, ed25519.PrivateKey, error) {
+func GetKeys(keyname string) (ed25519.PublicKey, ed25519.PrivateKey, error) {
 	var pub ed25519.PublicKey
 	var priv ed25519.PrivateKey
-	b, err := ioutil.ReadFile(ConfigPath("id_ecc"))
+	b, err := ioutil.ReadFile(ConfigPath(keyname))
 	if err != nil {
 		if os.IsNotExist(err) {
 			pub, priv, err = ed25519.GenerateKey(rand.Reader)
 			if err == nil {
-				err = ioutil.WriteFile(ConfigPath("id_ecc"), priv, 0600)
+				err = ioutil.WriteFile(ConfigPath(keyname), priv, 0600)
 				if err == nil {
-					err = ioutil.WriteFile(ConfigPath("id_ecc.pub"), pub, 0644)
+					err = ioutil.WriteFile(ConfigPath(keyname + ".pub"), pub, 0644)
 				}
 			}
 		}
 	} else {
 		priv = b
-		b, err = ioutil.ReadFile(ConfigPath("id_ecc.pub"))
+		b, err = ioutil.ReadFile(ConfigPath(keyname + ".pub"))
 		if err == nil {
 			pub = b
 		}
