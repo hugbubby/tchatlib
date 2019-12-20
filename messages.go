@@ -8,10 +8,9 @@ type Message struct {
 }
 
 type ContactList struct {
-	Contacts []Contact `json:"contacts"`
+	Contacts map[string]ContactDetails `json:"contacts"`
 }
 
-type Contact struct {
-	ServiceID string            `json:"service_id"`
+type ContactDetails struct {
 	PubKey    ed25519.PublicKey `json:"pubkey"`
 }
