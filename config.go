@@ -7,5 +7,5 @@ type Config struct {
 	} `json:"tor_config"`
 	PublicServerAddress  string `json:"public_server_address"`
 	PrivateServerAddress string `json:"private_server_address"`
-	ReadCookie           string `json:"read_cookie"`
+	ClientCookie         string `json:"client_cookie"`
 }
