@@ -8,31 +8,25 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-//Me being cheeky
-var configDir = os.Getenv("HOME") + "/.config/tchatd"
-
-func ConfigPath(filename string) string {
-	return configDir + "/" + filename
-}
 
 //Load private key from disk
-func GetKeys(keyname string) (ed25519.PublicKey, ed25519.PrivateKey, error) {
+func GetKeys(keypath string) (ed25519.PublicKey, ed25519.PrivateKey, error) {
 	var pub ed25519.PublicKey
 	var priv ed25519.PrivateKey
-	b, err := ioutil.ReadFile(ConfigPath(keyname))
+	b, err := ioutil.ReadFile(keypath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			pub, priv, err = ed25519.GenerateKey(rand.Reader)
 			if err == nil {
-				err = ioutil.WriteFile(ConfigPath(keyname), priv, 0600)
+				err = ioutil.WriteFile(keypath, priv, 0600)
 				if err == nil {
-					err = ioutil.WriteFile(ConfigPath(keyname + ".pub"), pub, 0644)
+					err = ioutil.WriteFile(keypath, pub, 0644)
 				}
 			}
 		}
 	} else {
 		priv = b
-		b, err = ioutil.ReadFile(ConfigPath(keyname + ".pub"))
+		b, err = ioutil.ReadFile(keypath)
 		if err == nil {
 			pub = b
 		}
