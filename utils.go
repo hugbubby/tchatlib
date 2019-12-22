@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/pkg/errors"
 	"golang.org/x/crypto/ed25519"
 )
-
 
 //Load private key from disk
 func GetKeys(keypath string) (ed25519.PublicKey, ed25519.PrivateKey, error) {
@@ -32,4 +32,13 @@ func GetKeys(keypath string) (ed25519.PublicKey, ed25519.PrivateKey, error) {
 		}
 	}
 	return pub, priv, err
+}
+
+func ErrWrapper(outerPrefix string) func(error, ...string) error {
+	return func(err error, prefixes ...string) error {
+		for _, v := range prefixes {
+			err = errors.Wrap(err, v)
+		}
+		return errors.Wrap(err, outerPrefix)
+	}
 }
